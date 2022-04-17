@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.Scanner;
 
-public class Apparat {
+public class Machine {
     final static int DEFAULT_MONEY = 550;
     final static int DEFAULT_WATER = 400;
     final static int DEFAULT_MILK = 540;
@@ -10,7 +10,7 @@ public class Apparat {
     final static int DEFAULT_CUPS = 9;
     public int water, milk, coffee, cups, money;
 
-    public static void getStarted(Apparat coffeeMachine) {
+    public static void getStarted(Machine coffeeMachine) {
         coffeeMachine.water = DEFAULT_WATER;
         coffeeMachine.milk = DEFAULT_MILK;
         coffeeMachine.coffee = DEFAULT_COFFEE;
@@ -19,7 +19,7 @@ public class Apparat {
 
     }
 
-    public static void showStatus(Apparat coffeeMachine) {
+    public static void showStatus(Machine coffeeMachine) {
         System.out.printf("""
                 The coffee machine has:
                 %d ml of water
@@ -42,7 +42,7 @@ public class Apparat {
         return scanner.nextInt();
     }
 
-    public static boolean checkEnough(Apparat coffeeMachine, Coffee coffee) {
+    public static boolean checkEnough(Machine coffeeMachine, Coffee coffee) {
         boolean resultWater = coffeeMachine.water - coffee.water >= 0;
         boolean resultMilk = coffeeMachine.milk - coffee.milk >= 0;
         boolean resultCoffee = coffeeMachine.coffee - coffee.coffee >= 0;
@@ -50,7 +50,7 @@ public class Apparat {
         return resultWater && resultMilk && resultCoffee && resultCups;
     }
 
-    public static String checkWhatNotEnough(Apparat coffeeMachine, Coffee coffee) {
+    public static String checkWhatNotEnough(Machine coffeeMachine, Coffee coffee) {
         boolean resultWater = coffeeMachine.water - coffee.water < 0;
         boolean resultMilk = coffeeMachine.milk - coffee.milk < 0;
         boolean resultCoffee = coffeeMachine.coffee - coffee.coffee < 0;
@@ -67,8 +67,8 @@ public class Apparat {
         return "ok";
     }
 
-    public static void buy(Apparat coffeeMachine, Coffee coffee) {
-        if (Apparat.checkEnough(coffeeMachine, coffee)) {
+    public static void buy(Machine coffeeMachine, Coffee coffee) {
+        if (Machine.checkEnough(coffeeMachine, coffee)) {
             System.out.println("I have enough resources, making you a coffee!");
             coffeeMachine.water -= coffee.water;
             coffeeMachine.milk -= coffee.milk;
@@ -76,12 +76,12 @@ public class Apparat {
             coffeeMachine.cups--;
             coffeeMachine.money += coffee.price;
         } else {
-            String resource = Apparat.checkWhatNotEnough(coffeeMachine, coffee);
+            String resource = Machine.checkWhatNotEnough(coffeeMachine, coffee);
             System.out.printf("Sorry, not enough %s!\n", resource);
         }
     }
 
-    public static void fill(Apparat coffeeMachine, Scanner scanner) {
+    public static void fill(Machine coffeeMachine, Scanner scanner) {
         System.out.println("Write how many ml of water you want to add: ");
         coffeeMachine.water += scanner.nextInt();
         System.out.println("Write how many ml of milk you want to add: ");
@@ -93,7 +93,7 @@ public class Apparat {
 
     }
 
-    public static int take(Apparat coffeeMachine) {
+    public static int take(Machine coffeeMachine) {
         int cash = coffeeMachine.money;
         coffeeMachine.money = 0;
         return cash;
