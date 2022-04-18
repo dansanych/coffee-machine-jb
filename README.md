@@ -1,2 +1,3 @@
-# coffee-machine-jb
-java vanilla project from JetBrains course "Java for Beginners"
+# Coffee Machine (JetBrains project)
+---
+123
